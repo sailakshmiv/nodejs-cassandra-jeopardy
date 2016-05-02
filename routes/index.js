@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   client.execute(query, [], function(err, result) {
     if (err) {
       res.render('index', {
-        error: err, 
+        error: err,
         query: query
       });
     }

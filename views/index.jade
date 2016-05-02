@@ -7,35 +7,27 @@ block content
       textarea.form-control#query(name="query", rows="3") #{query}
     .form-group
       button.btn.btn-primary Go
+
   .panel.panel-default
     .panel-heading: h4 Node.js & Apache Cassandra
     .panel-body
+      - var keys = rows !== undefined ? Object.keys(rows[0]) : undefined;
       p
         | Results for &nbsp;
         code #{query}
       if error
         h3.text-danger Error
         p #{error}
-      table.table.table-striped.table-hover
+    table.table.table-striped.table-hover
+      if rows
         thead
           tr
             th #
-            th Show Number
-            th Air Date
-            th Round
-            th Category
-            th Value
-            th Question
-            th Answer
+            each key in keys
+              th #{key}
         tbody
-          if rows
-            each row, i in rows
-              tr
-                td= i+1
-                td= row.shownumber
-                td= row.airdate
-                td= row.round
-                td= row.category
-                td.text-right= row.value
-                td(style="width:400px")= row.question
-                td= row.answer
+          each row, i in rows
+            tr
+              td= i+1
+              each key in keys
+                td(class="#{key}")= row[key]

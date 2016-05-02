@@ -1,6 +1,18 @@
 body {
-  padding: 50px;
+  padding: 50px 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
+
+tr > th:first-child,
+tr > td:first-child {
+  color: #aaa;
+  white-space: nowrap;
+  width: 1px; }
+
+td.question {
+  max-width: 400px; }
+
+td.value {
+  text-align: right; }
