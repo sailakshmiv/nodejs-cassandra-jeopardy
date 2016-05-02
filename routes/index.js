@@ -15,13 +15,9 @@ router.get('/', function(req, res, next) {
   else
     query = "SELECT * FROM leaks.jeopardy LIMIT 10;";
   client.execute(query, [], function(err, result) {
-    console.log(result);
     if (err) {
       res.render('index', {
         error: err,
-        result: {
-          rows: []
-        },
         query: query
       });
     }

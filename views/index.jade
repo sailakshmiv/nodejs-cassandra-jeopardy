@@ -11,10 +11,15 @@ block content
   .panel.panel-default
     .panel-heading: h4 Node.js & Apache Cassandra
     .panel-body
-      if result.rows[0]
+      - var results = false;
+      if result
+        if result.rows
+          if result.rows[0]
+            - results = true;
+      if results
         - var keys = Object.keys(result.rows[0]);
       p
-        | #{result.rowLength || 0} results for &nbsp;
+        | #{(results) ? result.rowLength : 0} results for &nbsp;
         code #{query}
       if error
         h3.text-danger Error
@@ -23,15 +28,15 @@ block content
       thead
         tr
           th #
-          if result.rows[0]
+          if results
             each key in keys
               th #{key}
           else
-            th 0 rows found
+            th 0 rows returned
       tbody
-        each row, i in result.rows
-          tr
-            td= i+1
-            if result.rows[0]
+        if results
+          each row, i in result.rows
+            tr
+              td= i+1
               each key in keys
                 td(class="#{key}")= row[key]
