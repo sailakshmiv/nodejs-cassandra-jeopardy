@@ -1,6 +1,14 @@
 ## Node.js & Cassandra Jeopardy
 
-```sh
-$ npm install
-$ npm start
-```
+#####Install modules
+  
+    npm install
+
+#####Start server
+
+    nodemon
+
+or
+
+    npm start
+
