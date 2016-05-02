@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var cassandra = require('cassandra-driver');
+var now = require("performance-now");
 
 var client = new cassandra.Client({contactPoints: ['localhost']}); // ip here if not localhost
 client.connect(function(err, res) {
@@ -14,7 +15,10 @@ router.get('/', function(req, res, next) {
     query = req.query.query;
   else
     query = "SELECT * FROM leaks.jeopardy LIMIT 10;";
+  var start = now();
   client.execute(query, [], function(err, result) {
+    var end = now();
+    var time = (end-start).toFixed(1);
     if (err) {
       res.render('index', {
         error: err,
@@ -25,7 +29,8 @@ router.get('/', function(req, res, next) {
       res.render('index', {
         result: {
           rows: result.rows,
-          rowLength: result.rowLength
+          rowLength: result.rowLength,
+          time: time
         },
         query: query
       });

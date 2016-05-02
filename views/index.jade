@@ -18,9 +18,17 @@ block content
             - results = true;
       if results
         - var keys = Object.keys(result.rows[0]);
+      p: code #{query}
       p
-        | #{(results) ? result.rowLength : 0} results for &nbsp;
-        code #{query}
+        if results
+          span.label.label-success.label-as-badge #{result.rowLength}
+        else
+          span.label.label-warning.label-as-badge 0
+        |  results
+        if results && result.time
+          |  in&nbsp;
+          span.label.label-success.label-as-badge #{(results) ? result.time : 0}
+          |  milliseconds
       if error
         h3.text-danger Error
         code #{error}

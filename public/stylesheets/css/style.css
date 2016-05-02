@@ -19,3 +19,7 @@ td.value {
 
 textarea {
   font-family: Menlo, Monaco, Consolas; }
+
+.label-as-badge {
+  border-radius: 1em;
+  font-size: 12px; }
