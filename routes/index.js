@@ -9,10 +9,17 @@ client.connect(function(err, res) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var query = "SELECT * FROM leaks.jeopardy LIMIT 10;";
+  var query;
+  if (req.query.query !== undefined)
+    query = req.query.query;
+  else
+    query = "SELECT * FROM leaks.jeopardy LIMIT 10;";
   client.execute(query, [], function(err, result) {
     if (err) {
-      res.status(404).send({msg: err});
+      res.render('index', {
+        error: err, 
+        query: query
+      });
     }
     else {
       res.render('index', {

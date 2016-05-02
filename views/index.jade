@@ -1,31 +1,41 @@
 extends layout
 
 block content
-  .panel.panel-default(style="width:980px; margin:auto")
+  form
+    .form-group
+      label(for="query") Query
+      textarea.form-control#query(name="query", rows="3") #{query}
+    .form-group
+      button.btn.btn-primary Go
+  .panel.panel-default
     .panel-heading: h4 Node.js & Apache Cassandra
     .panel-body
       p
         | Results for &nbsp;
         code #{query}
-    table.table.table-striped.table-hover
-      thead
-        tr
-          th #
-          th Show Number
-          th Air Date
-          th Round
-          th Category
-          th Value
-          th Question
-          th Answer
-      tbody
-        each row, i in rows
+      if error
+        h3.text-danger Error
+        p #{error}
+      table.table.table-striped.table-hover
+        thead
           tr
-            td= i+1
-            td= row.shownumber
-            td= row.airdate
-            td= row.round
-            td= row.category
-            td.text-right= row.value
-            td(style="width:400px")= row.question
-            td= row.answer
+            th #
+            th Show Number
+            th Air Date
+            th Round
+            th Category
+            th Value
+            th Question
+            th Answer
+        tbody
+          if rows
+            each row, i in rows
+              tr
+                td= i+1
+                td= row.shownumber
+                td= row.airdate
+                td= row.round
+                td= row.category
+                td.text-right= row.value
+                td(style="width:400px")= row.question
+                td= row.answer
