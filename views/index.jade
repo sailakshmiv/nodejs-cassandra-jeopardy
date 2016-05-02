@@ -6,10 +6,11 @@ block content
     .panel-body
       p
         | Results for &nbsp;
-        code SELECT * FROM leaks.jeopardy LIMIT 10;
+        code #{query}
     table.table.table-striped.table-hover
       thead
         tr
+          th #
           th Show Number
           th Air Date
           th Round
@@ -18,8 +19,9 @@ block content
           th Question
           th Answer
       tbody
-        each row in rows
+        each row, i in rows
           tr
+            td= i
             td= row.shownumber
             td= row.airdate
             td= row.round
