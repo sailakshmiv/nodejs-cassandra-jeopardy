@@ -11,23 +11,27 @@ block content
   .panel.panel-default
     .panel-heading: h4 Node.js & Apache Cassandra
     .panel-body
-      - var keys = rows !== undefined ? Object.keys(rows[0]) : undefined;
+      if result.rows[0]
+        - var keys = Object.keys(result.rows[0]);
       p
-        | Results for &nbsp;
+        | #{result.rowLength || 0} results for &nbsp;
         code #{query}
       if error
         h3.text-danger Error
-        p #{error}
+        code #{error}
     table.table.table-striped.table-hover
-      if rows
-        thead
-          tr
-            th #
+      thead
+        tr
+          th #
+          if result.rows[0]
             each key in keys
               th #{key}
-        tbody
-          each row, i in rows
-            tr
-              td= i+1
+          else
+            th 0 rows found
+      tbody
+        each row, i in result.rows
+          tr
+            td= i+1
+            if result.rows[0]
               each key in keys
                 td(class="#{key}")= row[key]

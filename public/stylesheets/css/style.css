@@ -16,3 +16,6 @@ td.question {
 
 td.value {
   text-align: right; }
+
+textarea {
+  font-family: Menlo, Monaco, Consolas; }
