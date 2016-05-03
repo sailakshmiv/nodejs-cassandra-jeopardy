@@ -4,7 +4,7 @@ block content
   form
     .form-group
       label(for="query") Query
-      textarea.form-control#query(name="query", rows="3") #{query}
+      textarea.form-control#query(name="query", rows="3", autofocus) #{query}
     .form-group
       button.btn.btn-primary Go
 
@@ -48,3 +48,17 @@ block content
               td= i+1
               each key in keys
                 td(class="#{key}")= row[key]
+  script.
+    $(document).ready(function() {
+      $('textarea[name=query]').keypress(function(e) {
+        e = e || event;
+        if (e.keyCode === 13 && !e.ctrlKey && !e.shiftKey) {
+          $('form').submit();
+          return false;
+        }
+        return true;
+      }).focus(function() {
+        this.selectionStart = this.selectionEnd = this.value.length;
+      });
+    });
+
