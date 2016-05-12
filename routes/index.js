@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
   client.execute(query, [], function(err, result) {
     var end = now();
     var time = (end-start).toFixed(1);
+    console.log(result);
     if (err) {
       res.render('index', {
         error: err,
