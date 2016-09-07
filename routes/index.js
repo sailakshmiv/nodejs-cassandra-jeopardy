@@ -3,7 +3,7 @@ var router = express.Router();
 var cassandra = require('cassandra-driver');
 var now = require("performance-now");
 
-var client = new cassandra.Client({contactPoints: ['localhost']}); // ip here if not localhost
+var client = new cassandra.Client({contactPoints: ['0.0.0.0:9160']}); // ip here if not localhost
 client.connect(function(err, res) {
   console.log('index: cassandra connected');
 });
